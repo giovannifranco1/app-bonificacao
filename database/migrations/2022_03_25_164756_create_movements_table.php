@@ -6,26 +6,34 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('movements', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('movements', function (Blueprint $table) {
+      # Primary key
+      $table->id();
+      $table->enum('movement_type', ['entrence', 'exit']);
+      $table->decimal('value');
+      $table->string('note', 300);
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('movements');
-    }
+      # Foreign key
+      $table->foreignId('Employee_id')->constrained('Employee')->onDelete('cascade')->onUpdate('cascade');
+      $table->foreignId('administrator_id')->constrained('administrator')->onDelete('cascade')->onUpdate('cascade');
+      $table->timestamps();
+    });
+  }
+
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('movements');
+  }
 };
