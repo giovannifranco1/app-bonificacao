@@ -4,5 +4,9 @@ namespace App\Repositories\Interfaces;
 
 interface EmployeeRepositoryInterface
 {
-    
+  public function __construct(Employee $funcionario);
+  public function createEmployee(Employee $funcionario): Employee;
+  public function updateEmployee(Employee $funcionario, int $id);
+  public function listAll(): Paginator;
+  public function deleteEmployee(int $id);
 }
