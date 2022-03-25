@@ -4,8 +4,8 @@ namespace App\Services;
 
 class EmployeeService
 {
-    public function __construct()
-    {
-        //
-    }
+  public function __construct()
+  {
+    //
+  }
 }
