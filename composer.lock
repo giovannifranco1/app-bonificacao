@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "848eeae51e31f81f8800977fc5c08d77",
+    "content-hash": "b0dc565b2658290acbc5fe076a128120",
     "packages": [
         {
             "name": "brick/math",
@@ -1789,6 +1789,62 @@
                 }
             ],
             "time": "2022-02-13T18:13:33+00:00"
+        },
+        {
+            "name": "netojose/laravel-bootstrap-4-forms",
+            "version": "3.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/netojose/laravel-bootstrap-4-forms.git",
+                "reference": "8800ce0ef53d73ae16b6c6600a8e90589c75d1c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/netojose/laravel-bootstrap-4-forms/zipball/8800ce0ef53d73ae16b6c6600a8e90589c75d1c6",
+                "reference": "8800ce0ef53d73ae16b6c6600a8e90589c75d1c6",
+                "shasum": ""
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NetoJose\\Bootstrap4Forms\\Bootstrap4FormsServiceProvider"
+                    ],
+                    "aliases": {
+                        "Form": "NetoJose\\Bootstrap4Forms\\Bootstrap4FormsFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NetoJose\\Bootstrap4Forms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "José Sousa",
+                    "email": "sputinykster@gmail.com"
+                }
+            ],
+            "description": "Bootstrap 4 form builder for Laravel 5",
+            "keywords": [
+                "Forms",
+                "bootstrap",
+                "composer",
+                "form-builder",
+                "laravel",
+                "package",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/netojose/laravel-bootstrap-4-forms/issues",
+                "source": "https://github.com/netojose/laravel-bootstrap-4-forms/tree/3.0.5"
+            },
+            "time": "2021-01-06T13:48:35+00:00"
         },
         {
             "name": "nette/schema",

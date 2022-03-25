@@ -2,6 +2,9 @@
 
 namespace App\Repositories\Interfaces;
 
+use App\Models\Employee;
+use Illuminate\Contracts\Pagination\Paginator;
+
 interface EmployeeRepositoryInterface
 {
   public function __construct(Employee $funcionario);

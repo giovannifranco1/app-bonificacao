@@ -13,7 +13,7 @@ class Employee extends Model
     'login',
     'password',
     'current_balance',
-    'Administrator_id',
+    'administrator_id',
   ];
 
   use HasFactory;
