@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -19,9 +18,11 @@ class LoginController extends Controller
 
   public function login(AuthRequest $request): RedirectResponse
   {
-    $credentials = $request->only('email', 'password');
-    dd(Auth::attempt($credentials));
+    if (auth()->guard('administrator')->attempt($request->validated())) {
+      return redirect()->route('home');
+    };
 
-    return redirect()->route('home');
+    return redirect()->back()->withErrors(['Login And Password Are Wrong.']);
   }
+
 }

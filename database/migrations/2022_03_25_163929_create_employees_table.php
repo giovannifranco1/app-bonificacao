@@ -17,9 +17,9 @@ return new class extends Migration
       # Primary key
       $table->id();
       $table->string('full_name');
-      $table->string('login');
+      $table->string('login')->unique();
       $table->string('password');
-      $table->decimal('current_balance');
+      $table->decimal('current_balance')->default(0.0);
 
       # Foreign key
       $table->foreignId('administrator_id')->constrained('administrator');
@@ -34,6 +34,6 @@ return new class extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('employees');
+    Schema::dropIfExists('employee');
   }
 };

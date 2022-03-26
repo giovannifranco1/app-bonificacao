@@ -17,7 +17,7 @@ return new class extends Migration
       # Primary key
       $table->id();
       $table->string('full_name');
-      $table->string('login');
+      $table->string('login')->unique();
       $table->string('password');
       $table->timestamps();
     });
