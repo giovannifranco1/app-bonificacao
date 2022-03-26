@@ -18,17 +18,17 @@ class EmployeeRepository extends BaseEloquentRepository implements EmployeeRepos
 
   }
 
-  public function createEmployee(Employee $employee): Employee
+  public function createEmployee(array $data): Employee
   {
     return $this->employeeEloquent
-      ->create($employee);
+      ->create($data);
   }
 
-  public function updateEmployee(Employee $employee, int $id)
+  public function updateEmployee(int $id, array $data)
   {
     return $this->employeeEloquent
       ->find($id)
-      ->fill($employee)
+      ->fill($data)
       ->save();
   }
 

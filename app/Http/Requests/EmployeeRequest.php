@@ -21,7 +21,7 @@ class EmployeeRequest extends FormRequest
    *
    * @return array
    */
-  public function rules()
+  public function rules(): array
   {
     return [
       'full_name' => ['required', 'max:300', 'min:0', 'string'],

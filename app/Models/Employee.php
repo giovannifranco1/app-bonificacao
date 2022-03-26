@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
+  use HasFactory;
+
   protected $table = 'Employee';
   protected $fillable = [
     'full_name',
@@ -16,5 +18,8 @@ class Employee extends Model
     'administrator_id',
   ];
 
-  use HasFactory;
+  public function administrator()
+  {
+    return $this->belongsTo(Administrator::class, 'administrator_id', 'id');
+  }
 }

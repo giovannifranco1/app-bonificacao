@@ -21,7 +21,7 @@ return new class extends Migration
       $table->string('note', 300);
 
       # Foreign key
-      $table->foreignId('Employee_id')->constrained('Employee')->onDelete('cascade')->onUpdate('cascade');
+      $table->foreignId('employee_id')->constrained('employee')->onDelete('cascade')->onUpdate('cascade');
       $table->foreignId('administrator_id')->constrained('administrator')->onDelete('cascade')->onUpdate('cascade');
       $table->timestamps();
     });

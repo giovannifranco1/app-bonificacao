@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Abstract;
 
-use App\Repositories\Interfaces\Abstract\BaseEloquentRepositoryInterface;
+use App\Repositories\Interfaces\BaseEloquentInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class BaseEloquentRepository implements BaseEloquentRepositoryInterface
+abstract class BaseEloquentRepository implements BaseEloquentInterface
 {
   protected $model;
   protected $instance;
@@ -21,6 +21,17 @@ abstract class BaseEloquentRepository implements BaseEloquentRepositoryInterface
       ->get();
   }
 
+  public function findBy($field, $value, array $relations = [])
+  {
+    $this->instance = $this->getNewInstance()
+      ->newQuery()
+      ->with($relations)
+      ->where($field, $value)
+      ->first();
+
+    return $this->instance;
+  }
+
   protected function applyFilters(array $parameters)
   {
     return function ($query) use ($parameters) {
@@ -30,9 +41,9 @@ abstract class BaseEloquentRepository implements BaseEloquentRepositoryInterface
     };
   }
 
-  public function paginate($orderBy = 'full_name', array $relations = [], $paginate = 25, $parameters = [])
+  public function paginate(int $paginate = 25, $orderBy = 'full_name', array $relations = [], $parameters = [])
   {
-    $this->instance = $this->getNewInstance();
+    $this->instance = $this->getNewInstance()->newQuery();
 
     $callbak_parameters = function ($query) use ($parameters) {
       foreach ($parameters as $field => $value) {

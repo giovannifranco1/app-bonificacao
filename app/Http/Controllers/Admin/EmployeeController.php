@@ -4,18 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
+use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Services\EmployeeService;
 use Exception;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\RedirectResponse;
 
 class EmployeeController extends Controller
 {
   protected $employeeService;
+  protected $employeeRepo;
 
-  public function __construct(EmployeeService $employeeService)
-  {
+  public function __construct(
+    EmployeeService $employeeService,
+    EmployeeRepositoryInterface $employeeRepo
+  ) {
     $this->employeeService = $employeeService;
+    $this->employeeRepo = $employeeRepo;
   }
 
   /**
@@ -25,7 +31,10 @@ class EmployeeController extends Controller
    */
   public function index()
   {
-    //
+    $relations = collect('administrator');
+    $employees = $this->employeeRepo->paginate(10, 'full_name', $relations->toArray());
+
+    return view('admin.employee.index', compact('employees'));
   }
 
   /**
@@ -44,13 +53,15 @@ class EmployeeController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(EmployeeRequest $request)
+  public function store(EmployeeRequest $request): RedirectResponse
   {
     try {
-      $this->employeeService->createEmployee($request->all());
+      $this->employeeService->storeOrUpdate(collect($request->validated()));
     } catch (Exception $e) {
-      report($e);
+      return redirect()->back()->withErrors($e->getMessage());
     }
+
+    return redirect()->back();
   }
 
   /**
@@ -72,7 +83,12 @@ class EmployeeController extends Controller
    */
   public function edit($id)
   {
-    //
+    try {
+      $this->employeeService->findById($id);
+    } catch (ModelNotFoundException $e) {
+      return redirect()->back()->withErrors($e->getMessage());
+    }
+    return view();
   }
 
   /**

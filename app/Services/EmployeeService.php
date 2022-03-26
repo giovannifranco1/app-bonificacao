@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Employee;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 
 class EmployeeService
 {
@@ -18,8 +20,27 @@ class EmployeeService
   /**
    * @throws Exceptions
    */
-  public function createEmployee(array $employee)
+  public function storeOrUpdate(Collection $data, int $employeeId = 0): Employee
   {
-    $this->employeeRepository->createEmployee(new Employee($employee));
+    $existingEmployee = $this->employeeRepository->findBy('id', $employeeId);
+    if (!$existingEmployee) {
+      $data->prepend(auth()->user()->id, 'administrator_id');
+      $employee = $this->employeeRepository->createEmployee($data->toArray());
+
+      return $employee;
+    }
+
+    return $this->employeeRepository->updateEmployee($employeeId, $data->toArray());
+  }
+
+  public function findById(int $employeeId): Employee
+  {
+    $employee = $this->employeeRepository->findBy('id', $employeeId);
+
+    if (!$employee) {
+      throw new ModelNotFoundException();
+    }
+
+    return $employee;
   }
 }
