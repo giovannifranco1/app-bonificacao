@@ -10,35 +10,35 @@ use Illuminate\Contracts\Pagination\Paginator;
 class EmployeeRepository extends BaseEloquentRepository implements EmployeeRepositoryInterface
 {
   protected $model = Employee::class;
-  private $EmployeeEloquent;
+  private $employeeEloquent;
 
-  public function __construct(Employee $Employee)
+  public function __construct(Employee $employee)
   {
-    $this->EmployeeEloquent = $Employee;
+    $this->employeeEloquent = $employee;
 
   }
 
-  public function createEmployee(Employee $Employee): Employee
+  public function createEmployee(Employee $employee): Employee
   {
-    return $this->EmployeeEloquent
-      ->create($Employee);
+    return $this->employeeEloquent
+      ->create($employee);
   }
 
-  public function updateEmployee(Employee $Employee, int $id)
+  public function updateEmployee(Employee $employee, int $id)
   {
-    return $this->EmployeeEloquent
+    return $this->employeeEloquent
       ->find($id)
-      ->fill($Employee)
+      ->fill($employee)
       ->save();
   }
 
   public function listAll(): Paginator
   {
-    return $this->paginate('full_name', array('adiminstrator'));
+    return $this->paginate('full_name', ['adiminstrator']);
   }
   public function deleteEmployee(int $id)
   {
-    return $this->EmployeeEloquent
+    return $this->employeeEloquent
       ->find($id)
       ->delete();
   }

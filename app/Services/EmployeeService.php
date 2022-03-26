@@ -18,8 +18,8 @@ class EmployeeService
   /**
    * @throws Exceptions
    */
-  public function criarOficial(Employee $employee)
+  public function createEmployee(array $employee)
   {
-    $this->employeeRepository->createEmployee($employee);
+    $this->employeeRepository->createEmployee(new Employee($employee));
   }
 }

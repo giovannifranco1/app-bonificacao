@@ -3,14 +3,16 @@
 namespace App\Repositories\Abstract;
 
 use App\Repositories\Interfaces\Abstract\BaseEloquentRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 abstract class BaseEloquentRepository implements BaseEloquentRepositoryInterface
 {
   protected $model;
   protected $instance;
+
   private $orderDirection = 'asc';
 
-  public function all($orderBy = 'id', array $relations = [])
+  public function all($orderBy = 'id', array $relations = []): Collection
   {
     $instance = $this->getNewInstance();
 
@@ -19,12 +21,28 @@ abstract class BaseEloquentRepository implements BaseEloquentRepositoryInterface
       ->get();
   }
 
-  public function paginate($orderBy = 'full_name', array $relations = [], $paginate = 25)
+  protected function applyFilters(array $parameters)
   {
-    $instance = $this->getNewInstance();
+    return function ($query) use ($parameters) {
+      foreach ($parameters as $field => $value) {
+        $query->where($field, $value);
+      }
+    };
+  }
 
-    return $instance->with($relations)
+  public function paginate($orderBy = 'full_name', array $relations = [], $paginate = 25, $parameters = [])
+  {
+    $this->instance = $this->getNewInstance();
+
+    $callbak_parameters = function ($query) use ($parameters) {
+      foreach ($parameters as $field => $value) {
+        $query->where($field, $value);
+      }
+    };
+
+    return $this->instance->with($relations)
       ->orderBy($orderBy, $this->orderDirection)
+      ->where($callbak_parameters)
       ->paginate($paginate);
   }
 
@@ -59,7 +77,7 @@ abstract class BaseEloquentRepository implements BaseEloquentRepositoryInterface
     return $this->executeSave($data);
   }
 
-  public function getNewInstance()
+  private function getNewInstance()
   {
     return new $this->model;
   }

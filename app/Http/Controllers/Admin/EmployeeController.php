@@ -4,10 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
+use App\Services\EmployeeService;
+use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+  protected $employeeService;
+
+  public function __construct(EmployeeService $employeeService)
+  {
+    $this->employeeService = $employeeService;
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -23,7 +33,7 @@ class EmployeeController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function create()
+  public function create(): View
   {
     return view('admin.employee.create');
   }
@@ -36,7 +46,11 @@ class EmployeeController extends Controller
    */
   public function store(EmployeeRequest $request)
   {
-    dd($request->all());
+    try {
+      $this->employeeService->createEmployee($request->all());
+    } catch (Exception $e) {
+      report($e);
+    }
   }
 
   /**
