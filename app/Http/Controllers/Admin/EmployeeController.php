@@ -84,7 +84,7 @@ class EmployeeController extends Controller
   public function edit($id)
   {
     try {
-      $this->employeeService->findById($id);
+      $this->employeeRepo->findBy('id', $id);
     } catch (ModelNotFoundException $e) {
       return redirect()->back()->withErrors($e->getMessage());
     }

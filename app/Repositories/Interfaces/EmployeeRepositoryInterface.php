@@ -12,5 +12,4 @@ interface EmployeeRepositoryInterface extends BaseEloquentInterface
   public function updateEmployee(int $id, array $data);
   public function listAll(): Paginator;
   public function deleteEmployee(int $id);
-  public function findBy($field, $value, array $relations = []);
 }

@@ -4,6 +4,7 @@ namespace App\Repositories\Abstract;
 
 use App\Repositories\Interfaces\BaseEloquentInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseEloquentRepository implements BaseEloquentInterface
 {
@@ -21,7 +22,7 @@ abstract class BaseEloquentRepository implements BaseEloquentInterface
       ->get();
   }
 
-  public function findBy($field, $value, array $relations = [])
+  public function findBy($field, $value, array $relations = []): Model
   {
     $this->instance = $this->getNewInstance()
       ->newQuery()
