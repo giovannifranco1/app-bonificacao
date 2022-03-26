@@ -3,16 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Notifications\Notifiable;
 
-class Administrator extends Model
+class Administrator extends User
 {
-  protected $table = 'Administrator';
+  use HasFactory, Notifiable;
+
+  protected $table = 'administrator';
   protected $fillable = [
     'full_name',
     'login',
     'password',
   ];
 
-  use HasFactory;
 }

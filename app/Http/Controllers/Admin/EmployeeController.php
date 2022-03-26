@@ -29,7 +29,8 @@ class EmployeeController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+
+  public function index(): View
   {
     $relations = collect('administrator');
     $employees = $this->employeeRepo->paginate(10, 'full_name', $relations->toArray());

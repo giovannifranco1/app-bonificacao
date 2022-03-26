@@ -15,7 +15,6 @@ class EmployeeRepository extends BaseEloquentRepository implements EmployeeRepos
   public function __construct(Employee $employee)
   {
     $this->employeeEloquent = $employee;
-
   }
 
   public function createEmployee(array $data): Employee
