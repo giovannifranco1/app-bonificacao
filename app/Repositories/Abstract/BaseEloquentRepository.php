@@ -22,7 +22,7 @@ abstract class BaseEloquentRepository implements BaseEloquentInterface
       ->get();
   }
 
-  public function findBy($field, $value, array $relations = []): Model
+  public function findBy($field, $value, array $relations = []): ?Model
   {
     $this->instance = $this->getNewInstance()
       ->newQuery()
@@ -31,6 +31,21 @@ abstract class BaseEloquentRepository implements BaseEloquentInterface
       ->first();
 
     return $this->instance;
+  }
+
+  public function getBy($parameters, array $relations = [])
+  {
+    $callbak_parameters = function ($query) use ($parameters) {
+      foreach ($parameters as $field => $value) {
+        $query->where($field, $value);
+      }
+    };
+
+    return $this->getNewInstance()
+      ->newQuery()
+      ->with($relations)
+      ->where($callbak_parameters)
+      ->get();
   }
 
   protected function applyFilters(array $parameters)
@@ -42,17 +57,17 @@ abstract class BaseEloquentRepository implements BaseEloquentInterface
     };
   }
 
-  public function paginate(int $paginate = 25, $orderBy = 'full_name', array $relations = [], $parameters = [])
+  public function paginate(int $paginate = 25, $orderBy = 'full_name', $parameters = [], array $relations = [])
   {
-    $this->instance = $this->getNewInstance()->newQuery();
-
     $callbak_parameters = function ($query) use ($parameters) {
       foreach ($parameters as $field => $value) {
-        $query->where($field, $value);
+        $query->where($field, 'like', "%{$value}%");
       }
     };
 
-    return $this->instance->with($relations)
+    return $this->getNewInstance()
+      ->newQuery()
+      ->with($relations)
       ->orderBy($orderBy, $this->orderDirection)
       ->where($callbak_parameters)
       ->paginate($paginate);

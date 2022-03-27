@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Employee;
 use App\Repositories\Abstract\BaseEloquentRepository;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator as Pagination;
 
 class EmployeeRepository extends BaseEloquentRepository implements EmployeeRepositoryInterface
 {
@@ -26,19 +26,40 @@ class EmployeeRepository extends BaseEloquentRepository implements EmployeeRepos
   public function updateEmployee(int $id, array $data)
   {
     return $this->employeeEloquent
-      ->find($id)
+      ->findOrFail($id)
       ->fill($data)
       ->save();
   }
 
-  public function listAll(): Paginator
+  public function listAll(int $paginate, array $parameters = []): Pagination
   {
-    return $this->paginate('full_name', ['adiminstrator']);
+    $callbak_parameters = function ($query) use ($parameters) {
+      $query->when(array_key_exists('created_at', $parameters), fn($q) =>
+        $q->whereDate('created_at', $parameters['created_at'])
+      )->when(array_key_exists('full_name', $parameters), fn($q) =>
+        $q->where('full_name', 'like', "%{$parameters['full_name']}%")
+      );
+    };
+
+    return $this->employeeEloquent
+      ->with('administrator')
+      ->where($callbak_parameters)
+      ->orderBy('full_name', 'asc')
+      ->paginate($paginate);
+
   }
+
+  public function findById(int $id): Employee
+  {
+    return $this->employeeEloquent
+      ->with('administrator')
+      ->findOrFail($id);
+  }
+
   public function deleteEmployee(int $id)
   {
     return $this->employeeEloquent
       ->find($id)
-      ->delete();
+      ->deleteOrfail($id);
   }
 }
