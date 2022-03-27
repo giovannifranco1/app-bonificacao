@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\MovementRepository;
+use App\Repositories\Interfaces\MovementRepositoryInterface;
 use App\Services\MovementService;
 use Exception;
 
@@ -13,7 +13,7 @@ class MovementController extends Controller
   protected $movementRepo;
 
   public function __construct(
-    MovementRepository $movementRepo,
+    MovementRepositoryInterface $movementRepo,
     MovementService $movementService
   ) {
     $this->movementRepo = $movementRepo;
