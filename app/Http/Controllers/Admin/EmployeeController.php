@@ -36,9 +36,9 @@ class EmployeeController extends Controller
   public function index(): View
   {
     $relations = collect('administrator');
-    $employees = $this->employeeRepo->paginate(25, 'full_name', [], $relations->toArray());
+    $employers = $this->employeeRepo->paginate(25, 'full_name', [], $relations->toArray());
 
-    return view('admin.employee.index', compact('employees'));
+    return view('admin.employee.index', compact('employers'));
   }
 
   /**
@@ -124,7 +124,7 @@ class EmployeeController extends Controller
   public function update(EmployeeRequest $request, $id)
   {
     try {
-      $this->employeeRepo->updateEmployee($id, $request->validated());
+      $this->employeeService->storeOrUpdate(collect($request->validated()), $id);
     } catch (ModelNotFoundException $e) {
       throw $e;
     } catch (Exception $e) {
@@ -175,7 +175,7 @@ class EmployeeController extends Controller
     }
 
     try {
-      $employees = $this->employeeRepo->listAll(25, $filled->toArray());
+      $employers = $this->employeeRepo->listAll(25, $filled->toArray());
     } catch (Exception $e) {
       report($e);
       return redirect()
@@ -183,6 +183,6 @@ class EmployeeController extends Controller
         ->withErrors(['Error search employee, I apologize we are working to resolve it as soon as possible.']);
     }
     $inputs = request()->all();
-    return view('admin.employee.index', compact('employees', 'inputs'));
+    return view('admin.employee.index', compact('employers', 'inputs'));
   }
 }

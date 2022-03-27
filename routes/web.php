@@ -20,6 +20,11 @@ Route::get('/', function () {
 })->name('home');
 Route::get('login', [LoginController::class, 'index'])->name('auth.index');
 Route::post('login', [LoginController::class, 'login'])->name('auth.logar');
-Route::get('employees', [EmployeeController::class, 'index'])->name('employee.index');
+
+Route::get('employers', [EmployeeController::class, 'index'])->name('employee.index');
 Route::get('employee/create', [EmployeeController::class, 'create'])->name('employee.create');
-Route::post('employee/store', [EmployeeController::class, 'store'])->name('employee.store');
+Route::get('employee/edit/{id}', [EmployeeController::class, 'edit'])->name('employee.edit');
+Route::get('employee/search', [EmployeeController::class, 'search'])->name('employee.search');
+Route::post('employee', [EmployeeController::class, 'store'])->name('employee.store');
+Route::put('employee/update/{id}', [EmployeeController::class, 'update'])->name('employee.update');
+Route::delete('employee/delete/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');

@@ -22,11 +22,12 @@ class EmployeeService
    */
   public function storeOrUpdate(Collection $data, int $employeeId = 0): Employee
   {
+    # Find employee by id
     $existingEmployee = $this->employeeRepository->findBy('id', $employeeId);
-    if (!$existingEmployee) {
-      $data->prepend(auth()->user()->id, 'administrator_id');
-      $employee = $this->employeeRepository->createEmployee($data->toArray());
 
+    if (!$existingEmployee) {
+      $data->prepend(auth()->guard('administrator')->user()->id, 'administrator_id');
+      $employee = $this->employeeRepository->createEmployee($data->toArray());
       return $employee;
     }
 

@@ -1,36 +1,97 @@
 <x-app>
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+  <div class="container">
+    {!! Form::open()->method('get')->autocomplete('off')->route('employee.search')->fill($inputs ?? '')!!}
+    <div class="form-row">
+      <div class="form-group col-md-4 col-12">
+        {!! Form::text('full_name', 'Full name')
+        ->attrs(['class' => 'w-full'])
+        ->placeholder('Full name')
+        ->min(0)
+        ->max(1000)
+        !!}
+      </div>
+      <div class="form-group col-md-4 col-12">
+        {!! Form::text('created_at', 'Create at')
+        ->attrs(['class' => 'w-full'])
+        ->type('datetime-local')
+        ->min(0)
+        ->max(1000)
+        !!}
+      </div>
+      <div class="form-group col-md-4 col-12">
+        {!! Form::submit('search')
+        ->info()
+        ->attrs(['style' => 'margin-top:30px'])
+        !!}
+      </div>
     </div>
-    <div class="card-body">
+    {!! Form::close() !!}
+  </div>
+  <div class="container">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Employers</h6>
+      </div>
+      <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Login</th>
-                  <th>Saldo atual</th>
-                </tr>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Current balance</th>
+                <th>Created at</th>
+                <th></th>
+              </tr>
             </thead>
             <tfoot>
               <tr>
-                <th>Nome</th>
-                <th>Login</th>
-                <th>Saldo atual</th>
+                <th width="20%">ID</th>
+                <th width="20%">Name</th>
+                <th width="20%">Current balance</th>
+                <th width="20%">Created at</th>
+                <th width="20%"></th>
               </tr>
             </tfoot>
             <tbody>
-              @foreach ($employees as $employee)
-                <tr>
-                  <td>{{ $employee->full_name }}</td>
-                  <td>{{ $employee->login }}</td>
-                  <td>{{ $employee->current_balance }}</td>
-                </tr>
+              @foreach ($employers as $employee)
+              <tr>
+                <td>{{ $employee->id }}</td>
+                <td>{{ $employee->full_name }}</td>
+                <td>{{ $employee->current_balance }}</td>
+                <td>{{ $employee->created_at }}</td>
+                <td class="d-flex">
+                  <a href="{{route('employee.edit', ['id' => $employee->id])}}" class="btn btn-info btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-info-circle"></i>
+                    </span>
+                    <span class="text">Edit</span>
+                  </a>
+                  <form action="{{route('employee.destroy', ['id' => $employee->id]) }}" method="post" title="Delete">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="ml-2 btn btn-danger btn-icon-split">
+                      <span class="icon text-white-50">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                      <span class="text">Delete</span>
+                    </button>
+                  </form>
+                </td>
+              </tr>
               @endforeach
             </tbody>
           </table>
+          @if (isset($inputs))
+          {!! $employers
+          ->appends($inputs)
+          ->links('vendor.pagination.bootstrap-4')
+          !!}
+          @else
+          {!! $employers->links('vendor.pagination.bootstrap-4') !!}
+          @endif
         </div>
+      </div>
     </div>
   </div>
 </x-app>

@@ -38,12 +38,12 @@ return [
   'guards' => [
     'web' => [
       'driver' => 'session',
-      'provider' => 'admins',
+      'provider' => 'administrator',
     ],
 
-    'admin' => [
+    'administrator' => [
       'driver' => 'session',
-      'provider' => 'admins',
+      'provider' => 'administrator',
     ],
   ],
 
@@ -70,7 +70,7 @@ return [
       'model' => App\Models\User::class,
     ],
 
-    'admins' => [
+    'administrator' => [
       'driver' => 'eloquent',
       'model' => App\Models\Administrator::class,
     ],
@@ -104,8 +104,8 @@ return [
       'throttle' => 60,
     ],
 
-    'admins' => [ // And here also
-      'provider' => 'admins',
+    'administrator' => [ // And here also
+      'provider' => 'administrator',
       'table' => 'password_resets',
       'expire' => 60,
     ],

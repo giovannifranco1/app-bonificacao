@@ -25,12 +25,23 @@
 <body class="bg-gradient-primary">
 
   <div class="container">
-
+    <div class="position-relative">
+      <div class="w-50 position-absolute" style="z-index: 1; right: 10px; top: 10px;">
+        @if ($errors->all())
+        <x-alert type="danger">
+          @foreach ($errors->all() as $error)
+          <ul>
+            <li>{{$error}}</li>
+          </ul>
+          @endforeach
+        </x-alert>
+        @endif
+      </div>
+    </div>
     <!-- Outer Row -->
     <div class="row justify-content-center">
 
       <div class="col-6">
-
         <div class="card o-hidden my-5 border-0 shadow-lg">
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
@@ -42,21 +53,21 @@
                   </div>
                   {!! Form::open()->method('post')->attrs(['class' => 'user'])->route('auth.logar') !!}
 
-                      {!! Form::text('login', 'Login')
-                        ->placeholder('Enter Login ...')
-                        ->attrs(['class' => 'form-control form-control-user'])
-                      !!}
+                  {!! Form::text('login', 'Login')
+                  ->placeholder('Enter Login ...')
+                  ->attrs(['class' => 'form-control form-control-user'])
+                  !!}
 
-                      {!! Form::text('password', 'Password')
-                        ->type('password')
-                        ->attrs(['class' => 'form-control form-control-user '])
-                        ->placeholder('Password')
-                      !!}
+                  {!! Form::text('password', 'Password')
+                  ->type('password')
+                  ->attrs(['class' => 'form-control form-control-user '])
+                  ->placeholder('Password')
+                  !!}
 
-                    {!! Form::button('Login')
-                    ->type('submit')
-                    ->attrs(['class' => 'btn btn-primary btn-user btn-block']) !!}
-                    <hr>
+                  {!! Form::button('Login')
+                  ->type('submit')
+                  ->attrs(['class' => 'btn btn-primary btn-user btn-block']) !!}
+                  <hr>
                   {!! Form::close() !!}
                   <hr>
                   <div class="text-center">

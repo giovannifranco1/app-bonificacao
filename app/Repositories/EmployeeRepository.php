@@ -23,12 +23,15 @@ class EmployeeRepository extends BaseEloquentRepository implements EmployeeRepos
       ->create($data);
   }
 
-  public function updateEmployee(int $id, array $data)
+  public function updateEmployee(int $id, array $data): Employee
   {
-    return $this->employeeEloquent
+    $employee = $this->employeeEloquent
       ->findOrFail($id)
-      ->fill($data)
-      ->save();
+      ->fill($data);
+
+    $employee->save();
+
+    return $employee;
   }
 
   public function listAll(int $paginate, array $parameters = []): Pagination
