@@ -39,18 +39,18 @@
               <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Current balance</th>
+                <th>Balance</th>
                 <th>Created at</th>
                 <th></th>
               </tr>
             </thead>
             <tfoot>
               <tr>
-                <th width="20%">ID</th>
-                <th width="20%">Name</th>
-                <th width="20%">Current balance</th>
-                <th width="20%">Created at</th>
-                <th width="20%"></th>
+                <th width="10%">ID</th>
+                <th width="30%">Name</th>
+                <th width="10%">Balance</th>
+                <th width="30%">Created at</th>
+                <th width="30%"></th>
               </tr>
             </tfoot>
             <tbody>
@@ -66,6 +66,12 @@
                       <i class="fas fa-info-circle"></i>
                     </span>
                     <span class="text">Edit</span>
+                  </a>
+                  <a href="{{route('employee.movements', ['id' => $employee->id])}}" class="ml-2 btn btn-info btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-info-circle"></i>
+                    </span>
+                    <span class="text">Movements</span>
                   </a>
                   <form action="{{route('employee.destroy', ['id' => $employee->id]) }}" method="post" title="Delete">
                     @csrf

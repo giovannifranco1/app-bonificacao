@@ -185,4 +185,9 @@ class EmployeeController extends Controller
     $inputs = request()->all();
     return view('admin.employee.index', compact('employers', 'inputs'));
   }
+
+  public function getMovements($employeeId)
+  {
+    return redirect()->route('movement.employee', ['employeeId' => $employeeId]);
+  }
 }

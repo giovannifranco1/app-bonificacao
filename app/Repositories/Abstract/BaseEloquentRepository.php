@@ -33,7 +33,7 @@ abstract class BaseEloquentRepository implements BaseEloquentInterface
     return $this->instance;
   }
 
-  public function getBy($parameters, array $relations = [])
+  public function getBy($parameters, int $bring = 0, array $relations = [])
   {
     $callbak_parameters = function ($query) use ($parameters) {
       foreach ($parameters as $field => $value) {
@@ -45,6 +45,7 @@ abstract class BaseEloquentRepository implements BaseEloquentInterface
       ->newQuery()
       ->with($relations)
       ->where($callbak_parameters)
+      ->take($bring)
       ->get();
   }
 
