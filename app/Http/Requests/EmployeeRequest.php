@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EmployeeRequest extends FormRequest
 {
@@ -24,9 +25,26 @@ class EmployeeRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'full_name' => ['required', 'max:300', 'min:0', 'string'],
-      'login' => ['required', 'string', 'max:300', 'min:0'],
-      'password' => ['required', 'string', 'max:200', 'min:0'],
+      'full_name' => [
+        'required',
+        'max:300',
+        'min:0',
+        'string',
+      ],
+      'login' => [
+        'required',
+        'string',
+        'max:300',
+        'min:0',
+        Rule::unique('employee', 'login')
+          ->ignore($this->id),
+      ],
+      'password' => [
+        'required',
+        'string',
+        'max:200',
+        'min:0',
+      ],
     ];
   }
 }
