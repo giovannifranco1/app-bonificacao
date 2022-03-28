@@ -9,14 +9,19 @@ Depois rode
 composer update
 ```
 ### Configuração de Ambiente
+
+```
+php artisan key:generate
+```
 ```
 cp .env.example .env
 ```
 
 ### Inicialização
 
-
+Verifica se no php.ini a extensão mysql está habilitada. Caso esteja
 Inicie o mysql e depois rode
+ 
 ```
 php artisan migrate --seed
 ```
