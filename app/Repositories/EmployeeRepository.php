@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\InsufficientBalanceException;
 use App\Models\Employee;
 use App\Repositories\Abstract\BaseEloquentRepository;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
@@ -33,6 +34,22 @@ class EmployeeRepository extends BaseEloquentRepository implements EmployeeRepos
 
     return $employee;
   }
+  public function income(Employee $employee, $value): Employee
+  {
+    $employee->current_balance += $value;
+    $employee->save();
+    return $employee;
+  }
+
+  public function expense(Employee $employee, $value): Employee
+  {
+    if ($employee->current_balance - $value < 0) {
+      throw new InsufficientBalanceException();
+    }
+    $employee->current_balance -= $value;
+    $employee->save();
+    return $employee;
+  }
 
   public function listAll(int $paginate, array $parameters = []): Pagination
   {
@@ -55,6 +72,13 @@ class EmployeeRepository extends BaseEloquentRepository implements EmployeeRepos
   public function findById(int $id): Employee
   {
     return $this->employeeEloquent
+      ->select(
+        'id',
+        'full_name',
+        'login',
+        'current_balance',
+        'created_at'
+      )
       ->with('administrator')
       ->findOrFail($id);
   }

@@ -27,9 +27,14 @@ class EmployeeService
 
     if (!$existingEmployee) {
       $data->prepend(auth()->guard('administrator')->user()->id, 'administrator_id');
+      $data->put('password', bcrypt($data->get('password')));
       $employee = $this->employeeRepository->createEmployee($data->toArray());
       return $employee;
     }
+
+    $data->get('password')
+    ? bcrypt($data->get('password'))
+    : $data->put('password', $existingEmployee->password);
 
     return $this->employeeRepository->updateEmployee($employeeId, $data->toArray());
   }

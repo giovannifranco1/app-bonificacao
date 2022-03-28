@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class EmployeeRequest extends FormRequest
 {
@@ -40,10 +41,15 @@ class EmployeeRequest extends FormRequest
           ->ignore($this->id),
       ],
       'password' => [
-        'required',
-        'string',
-        'max:200',
-        'min:0',
+        'confirmed',
+        Rule::requiredIf(fn() => !$this->id),
+        Rule::when($this->id, 'nullable'),
+        Password::min(8)
+          ->letters()
+          ->numbers()
+          ->symbols()
+          ->mixedCase()
+          ->uncompromised(),
       ],
     ];
   }
