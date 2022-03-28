@@ -109,7 +109,7 @@ class EmployeeController extends Controller
       report($e);
       return redirect()
         ->back()
-        ->withErrors(['Error find employee, I apologize we are working to resolve it as soon as possible.']);
+        ->withErrors(['Error, I apologize we are working to resolve it as soon as possible.']);
     }
     return view('admin.employee.edit', compact('employee'));
   }
@@ -117,7 +117,7 @@ class EmployeeController extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  \Illuminate\Http\Request  $request
+   * @param  \Illuminate\Http\EmployeeRequest  $request
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
@@ -131,7 +131,7 @@ class EmployeeController extends Controller
       report($e);
       return redirect()
         ->back()
-        ->withErrors(['Error find employee, I apologize we are working to resolve it as soon as possible.']);
+        ->withErrors(['Error, I apologize we are working to resolve it as soon as possible.']);
     }
     return redirect()->back()->with('success', 'successfully deleted');
   }
@@ -152,7 +152,7 @@ class EmployeeController extends Controller
       report($e);
       return redirect()
         ->back()
-        ->withErrors(['Error find employee, I apologize we are working to resolve it as soon as possible.']);
+        ->withErrors(['Error, I apologize we are working to resolve it as soon as possible.']);
     }
     return redirect()->back()->with('success', 'successfully deleted');
   }
