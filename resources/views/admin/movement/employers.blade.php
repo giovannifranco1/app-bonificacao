@@ -1,7 +1,7 @@
 <x-app>
   <div class="container">
     <a href="{{route('employee.index')}}" class="btn btn-primary my-4">
-      Voltar
+      Back
     </a>
     <div class="position-relative" style="position: relative">
       <h5>

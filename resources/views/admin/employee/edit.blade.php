@@ -1,7 +1,7 @@
 <x-app>
   <div class="container col-5">
     <a href="{{route('employee.index')}}" class="btn btn-primary my-4">
-      Voltar
+      Back
     </a>
     {!! Form::open()
     ->method('put')

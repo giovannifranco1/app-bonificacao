@@ -1,7 +1,7 @@
 <x-app>
   <div class="container col-md-12 col-lg-5">
     <a href="{{route('employee.index')}}" class="btn btn-primary my-4">
-      Voltar
+      Back
     </a>
     {!! Form::open()->method('post')->autocomplete('off')->route('movement.store', ['employeeId' => $employeeId]) !!}
       <div class="form-row">
