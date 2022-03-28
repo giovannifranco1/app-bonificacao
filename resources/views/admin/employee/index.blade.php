@@ -13,7 +13,7 @@
       <div class="form-group col-md-4 col-12">
         {!! Form::text('created_at', 'Create at')
         ->attrs(['class' => 'w-full'])
-        ->type('datetime-local')
+        ->type('date')
         ->min(0)
         ->max(1000)
         !!}
@@ -46,9 +46,9 @@
             </thead>
             <tfoot>
               <tr>
-                <th width="10%">ID</th>
+                <th width="5%">ID</th>
                 <th width="30%">Name</th>
-                <th width="10%">Balance</th>
+                <th width="15%">Balance</th>
                 <th width="30%">Created at</th>
                 <th width="30%"></th>
               </tr>
@@ -58,7 +58,7 @@
               <tr>
                 <td>{{ $employee->id }}</td>
                 <td>{{ $employee->full_name }}</td>
-                <td>{{ $employee->current_balance }}</td>
+                <td>{{ "R$ " . number_format($employee->current_balance, 2, ",", "."); }}</td>
                 <td>{{ $employee->created_at }}</td>
                 <td class="d-flex">
                   <a href="{{route('employee.edit', ['id' => $employee->id])}}" class="btn btn-info btn-icon-split">
@@ -69,7 +69,7 @@
                   </a>
                   <a href="{{route('employee.movements', ['id' => $employee->id])}}" class="ml-2 btn btn-info btn-icon-split">
                     <span class="icon text-white-50">
-                      <i class="fas fa-info-circle"></i>
+                      <i class="fas fa-exchange-alt"></i>
                     </span>
                     <span class="text">Movements</span>
                   </a>

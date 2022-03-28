@@ -18,7 +18,7 @@ return new class extends Migration
       $table->id();
       $table->enum('movement_type', ['income', 'expense']);
       $table->decimal('value');
-      $table->string('note', 300);
+      $table->string('note', 500)->nullable();
 
       # Foreign key
       $table->foreignId('employee_id')->constrained('employee')->onDelete('cascade')->onUpdate('cascade');

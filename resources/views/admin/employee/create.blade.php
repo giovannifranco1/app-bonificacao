@@ -1,5 +1,5 @@
 <x-app>
-  <div class="container col-5">
+  <div class="container col-md-12 col-lg-5">
     <a href="{{route('employee.index')}}" class="btn btn-primary my-4">
       Voltar
     </a>
@@ -24,8 +24,9 @@
         </div>
         <div class="form-group col-12">
           {!! Form::text('password', 'Password')
-            ->attrs(['class' => 'w-full'])
+            ->attrs(['class' => 'w-full', 'autocomplete' => 'on'])
             ->type('password')
+            ->autocomplete('on')
             ->min(0)
             ->max(1000)
           !!}
@@ -33,6 +34,7 @@
         <div class="form-group col-12">
           {!! Form::text('password_confirmation', 'Confirm Password')
             ->attrs(['class' => 'w-full'])
+            ->autocomplete('on')
             ->type('password')
             ->min(0)
             ->max(1000)

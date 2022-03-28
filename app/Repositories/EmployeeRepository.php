@@ -10,6 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator as Pagination;
 
 class EmployeeRepository extends BaseEloquentRepository implements EmployeeRepositoryInterface
 {
+  /** @var Employee */
   protected $model = Employee::class;
   private $employeeEloquent;
 

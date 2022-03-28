@@ -23,6 +23,13 @@ class MovementService
     $this->employeeRepo = $employeeRepo;
   }
 
+  /**
+   * @return void
+   * @param $movementType
+   * @param $movement
+   * Use for Income or Expense
+   */
+
   public function incomeOrExpense($movementType, Movement $movement): void
   {
     $employee = $this->employeeRepo->findById($movement->employee_id);
@@ -31,6 +38,12 @@ class MovementService
       'expense' => $this->employeeRepo->expense($employee, $movement->value)
     };
   }
+
+  /**
+   * @return Movement
+   * @param Collection $data
+   *
+   */
 
   public function create(Collection $data): Movement
   {

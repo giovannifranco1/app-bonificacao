@@ -3,13 +3,19 @@
     <a href="{{route('employee.index')}}" class="btn btn-primary my-4">
       Voltar
     </a>
-    <h5>
-      Records
-    </h5>
+    <div class="position-relative" style="position: relative">
+      <h5>
+        Records
+      </h5>
+      <h6 class="m-0 font-weight-bold text-primary position-absolute" style="right: 0; top: 0">
+        Saldo: <span>{{"R$ " . number_format($employee->current_balance, 2, ",", "."); }}</span>
+      </h6>
+    </div>
+
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Movements</h6>
-        <a href="{{route('movement.create', ['employeeId' => $employeeId])}}" class="btn btn-success btn-icon-split position-absolute" style="right: 30px; top:7px">
+        <a href="{{route('movement.create', ['employeeId' => $employee->id])}}" class="btn btn-success btn-icon-split position-absolute" style="right: 30px; top:7px">
           <span class="icon text-white-50">
             <i class="fas fa-plus-circle"></i>
           </span>
@@ -25,7 +31,6 @@
                 <th>Type</th>
                 <th>Value</th>
                 <th>Note</th>
-                <th></th>
               </tr>
             </thead>
             <tfoot>
@@ -34,7 +39,6 @@
                 <th width="10%">Type</th>
                 <th width="20%">Value</th>
                 <th width="40%">Note</th>
-                <th></th>
               </tr>
             </tfoot>
             <tbody>
@@ -50,14 +54,6 @@
                   @endif
                 </td>
                 <td class="text-left">{{ $movement->note }}</td>
-                <td>
-                  <a href="{{route('movement.edit', ['id' => $movement->id])}}" class="btn btn-info btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-info-circle"></i>
-                    </span>
-                    <span class="text">Edit</span>
-                  </a>
-                </td>
               </tr>
               @endforeach
             </tbody>

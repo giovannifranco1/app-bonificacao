@@ -30,7 +30,6 @@ class MovementRequest extends FormRequest
         Rule::in('income', 'expense'),
       ],
       'value' => [
-        'numeric',
         'required',
         'min:0',
       ],

@@ -4,7 +4,7 @@
 ```
 composer install
 ```
-
+Depois rode
 ```
 composer update
 ```
@@ -30,6 +30,7 @@ php artisan migrate --seed
 - Requisitos:
   - Php8
   - Mysql
+  - Composer
 
 Clone o projeto em seu dispositivo, Abra o terminal e execute `php artisan serve`,
 a aplicação irá rodar no endereço: `http://localhost:8000`

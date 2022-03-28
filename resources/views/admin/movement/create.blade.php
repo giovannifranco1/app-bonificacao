@@ -1,5 +1,5 @@
 <x-app>
-  <div class="container col-12 col-md-8">
+  <div class="container col-md-12 col-lg-5">
     <a href="{{route('employee.index')}}" class="btn btn-primary my-4">
       Voltar
     </a>
@@ -13,7 +13,7 @@
         </div>
         <div class="form-group col-md-6 col-12">
           {!! Form::text('value', 'Value')
-            ->attrs(['class' => 'w-full money2', 'pattern' => '[0-9]*'])
+            ->attrs(['class' => 'w-full money2'])
             ->type('text')
             ->min(0)
             ->max(1000)
@@ -38,10 +38,5 @@
       </div>
     {!! Form::close() !!}
   </div>
-  {{-- <script>
-      $(document).ready(function(){
-          $('.money2').mask('000.000.000.000.000,00', {reverse: true});
-      });
-  </script> --}}
 </x-app>
 

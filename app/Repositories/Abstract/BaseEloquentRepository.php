@@ -45,6 +45,7 @@ abstract class BaseEloquentRepository implements BaseEloquentInterface
       ->newQuery()
       ->with($relations)
       ->where($callbak_parameters)
+      ->orderBy('id', 'desc')
       ->take($bring)
       ->get();
   }

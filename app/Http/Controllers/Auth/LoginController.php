@@ -19,9 +19,15 @@ class LoginController extends Controller
   public function login(AuthRequest $request): RedirectResponse
   {
     if (auth()->guard('administrator')->attempt($request->validated())) {
-      return redirect()->route('home');
+      return redirect()->route('admin.index');
     };
     return redirect()->back()->withErrors(['Login And Password Are Wrong.']);
+  }
+
+  public function logout()
+  {
+    auth()->guard('administrator')->logout();
+    return redirect()->route('admin.index');
   }
 
 }
