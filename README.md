@@ -1,23 +1,24 @@
-# Bonus
+# App Bonificação
 
-## Project setup
+## Configuração do projeto
 ```
 composer install
 ```
+
+```
 composer update
 ```
-```
-### Env settings
+### Configuração de Ambiente
 ```
 cp .env.example .env
 ```
 
-### Startup
+### Inicialização
 ```
 php artisan migrate --seed
 ```
 
-# Bonus
+# App Bonificacao
 
 ### Tecnologias
 
@@ -30,5 +31,5 @@ php artisan migrate --seed
   - Php8
   - Mysql
 
-Clone o projeto em seu dispositivo, Abra o terminal,  execute `php artisan serve`,
+Clone o projeto em seu dispositivo, Abra o terminal e execute `php artisan serve`,
 a aplicação irá rodar no endereço: `http://localhost:8000`
