@@ -1,5 +1,8 @@
 <x-app>
-  <div class="container">
+  <div class="container col-5">
+    <a href="{{route('employee.index')}}" class="btn btn-primary my-4">
+      Voltar
+    </a>
     {!! Form::open()->method('post')->autocomplete('off')->route('employee.store') !!}
       <div class="form-row">
         <div class="form-group col-12">
@@ -11,7 +14,7 @@
             ->max(1000)
           !!}
         </div>
-        <div class="form-group col-md-6 col-12">
+        <div class="form-group col-12">
           {!! Form::text('login', 'Login')
             ->attrs(['class' => 'w-full'])
             ->min(0)
@@ -19,8 +22,16 @@
             ->max(1000)
           !!}
         </div>
-        <div class="form-group col-md-6 col-12">
-          {!! Form::text('password', 'Senha')
+        <div class="form-group col-12">
+          {!! Form::text('password', 'Password')
+            ->attrs(['class' => 'w-full'])
+            ->type('password')
+            ->min(0)
+            ->max(1000)
+          !!}
+        </div>
+        <div class="form-group col-12">
+          {!! Form::text('password_confirmation', 'Confirm Password')
             ->attrs(['class' => 'w-full'])
             ->type('password')
             ->min(0)
