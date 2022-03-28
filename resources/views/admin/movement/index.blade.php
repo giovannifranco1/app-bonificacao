@@ -11,7 +11,7 @@
         !!}
       </div>
       <div class="form-group col-md-3 col-12">
-        {!! Form::text('created_at', 'Create at')
+        {!! Form::text('created_at', 'Created at')
         ->attrs(['class' => 'w-full'])
         ->type('date')
         ->min(0)
