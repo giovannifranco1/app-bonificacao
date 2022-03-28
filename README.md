@@ -14,6 +14,9 @@ cp .env.example .env
 ```
 
 ### Inicialização
+
+
+Inicie o mysql e depois rode
 ```
 php artisan migrate --seed
 ```
