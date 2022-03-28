@@ -16,7 +16,7 @@ return new class extends Migration
     Schema::create('movement', function (Blueprint $table) {
       # Primary key
       $table->id();
-      $table->enum('movement_type', ['entrence', 'exit']);
+      $table->enum('movement_type', ['income', 'expense']);
       $table->decimal('value');
       $table->string('note', 300);
 

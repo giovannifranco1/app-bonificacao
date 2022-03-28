@@ -28,11 +28,14 @@ Route::get('employee/create', [EmployeeController::class, 'create'])->name('empl
 Route::get('employee/edit/{id}', [EmployeeController::class, 'edit'])->name('employee.edit');
 Route::get('employee/search', [EmployeeController::class, 'search'])->name('employee.search');
 Route::get('employee/{id}/movements', [EmployeeController::class, 'getMovements'])->name('employee.movements');
-Route::post('employee', [EmployeeController::class, 'store'])->name('employee.store');
+Route::post('employee/store', [EmployeeController::class, 'store'])->name('employee.store');
 Route::put('employee/update/{id}', [EmployeeController::class, 'update'])->name('employee.update');
 Route::delete('employee/delete/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
 
 # Movement routes
 Route::get('movements', [MovementController::class, 'index'])->name('movement.index');
-Route::get('movement/create', [MovementController::class, 'index'])->name('movement.create');
+Route::get('movement/create/{employeeId}', [MovementController::class, 'create'])->name('movement.create');
+Route::post('movement/store/{employeeId}', [MovementController::class, 'store'])->name('movement.store');
+Route::get('movement/edit', [MovementController::class, 'edit'])->name('movement.edit');
 Route::get('movements/employee/{employeeId}', [MovementController::class, 'showByEmployee'])->name('movement.employee');
+Route::get('movements/search', [MovementController::class, 'search'])->name('movement.search');

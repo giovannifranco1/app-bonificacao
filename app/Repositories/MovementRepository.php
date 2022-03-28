@@ -21,4 +21,22 @@ class MovementRepository extends BaseEloquentRepository implements MovementRepos
   {
     return $this->getBy(['employee_id' => $employeeId], 25, ['employee']);
   }
+
+  public function createMovement(array $data): Movement
+  {
+    return $this->movementEloquent
+      ->create($data);
+  }
+
+  public function updateMovement(int $id, array $data): Movement
+  {
+    $movement = $this->movementEloquent
+      ->findOrFail($id)
+      ->fill($data);
+
+    $movement->save();
+
+    return $movement;
+  }
+
 }

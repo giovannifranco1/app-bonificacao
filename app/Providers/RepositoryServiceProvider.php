@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\EmployeeRepository;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
+use App\Repositories\Interfaces\MovementRepositoryInterface;
+use App\Repositories\MovementRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -11,6 +13,7 @@ class RepositoryServiceProvider extends ServiceProvider
   # Array repositories
   protected $repositories = [
     EmployeeRepositoryInterface::class => EmployeeRepository::class,
+    MovementRepositoryInterface::class => MovementRepository::class,
   ];
   /**
    * Register services.

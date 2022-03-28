@@ -13,4 +13,6 @@ interface EmployeeRepositoryInterface extends BaseEloquentInterface
   public function listAll(int $paginate, array $parameters = []): LengthAwarePaginator;
   public function findById(int $id): Employee;
   public function deleteEmployee(int $id);
+  public function income(Employee $employee, $value): Employee;
+  public function expense(Employee $employee, $value): Employee;
 }

@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\InsufficientBalanceException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MovementRequest;
 use App\Repositories\Interfaces\MovementRepositoryInterface;
 use App\Services\MovementService;
 use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 
 class MovementController extends Controller
 {
@@ -19,19 +24,42 @@ class MovementController extends Controller
     $this->movementRepo = $movementRepo;
     $this->movementService = $movementService;
   }
+
   public function index()
   {
-    # code...
+    return view('admin.movement.index');
   }
 
-  public function create()
+  public function create($employeeId): View
   {
-    # code...
+    return view('admin.movement.create', compact('employeeId'));
   }
 
-  public function store()
+  public function store(MovementRequest $request, int $employeeId)
   {
-    # code...
+    $data = collect($request->validated());
+    $data->prepend($employeeId, 'employee_id');
+    $data->prepend(auth()->guard('administrator')->user()->id, 'administrator_id');
+
+    try {
+      DB::transaction(function () use ($data) {
+        $movement = $this->movementService->create($data);
+        $this->movementService->incomeOrExpense($data->get('movement_type'), $movement);
+      });
+    } catch (ModelNotFoundException $e) {
+      throw $e;
+    } catch (InsufficientBalanceException $e) {
+      return redirect()
+        ->back()
+        ->withErrors(['Insufficient Balance']);
+    } catch (Exception $e) {
+      report($e);
+      return redirect()
+        ->back()
+        ->withErrors(['Error find employee, I apologize we are working to resolve it as soon as possible.']);
+    }
+
+    return redirect()->route('movement.employee', compact('employeeId'))->with('success', 'Successful');
   }
 
   public function showByEmployee($employeeId)
@@ -44,7 +72,7 @@ class MovementController extends Controller
         ->back()
         ->withErrors(['Error search movements, I apologize we are working to resolve it as soon as possible.']);
     }
-    return;
+    return view('admin.movement.employers', compact('movements', 'employeeId'));
   }
 
   public function search()
