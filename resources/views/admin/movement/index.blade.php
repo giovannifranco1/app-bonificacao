@@ -3,7 +3,7 @@
     {!! Form::open()->method('get')->autocomplete('off')->route('movement.search')->fill($inputs ?? '')!!}
     <div class="form-row">
       <div class="form-group col-md-4 col-12">
-        {!! Form::text('name', 'Employee')
+        {!! Form::text('full_name', 'Employee')
         ->attrs(['class' => 'w-full'])
         ->placeholder('Full name')
         ->min(0)
